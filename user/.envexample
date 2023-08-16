@@ -1,0 +1,4 @@
+NODE_ENV=development
+PORT=3000
+MONGO_PATH=mongodb://127.0.0.1:27017/ts-auth
+SECRET_KEY=lifeisshortliveitlong
