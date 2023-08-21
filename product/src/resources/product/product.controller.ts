@@ -4,6 +4,7 @@ import HttpException from "../../utils/exceptions/http.exception";
 import validationMiddleware from '../../middleware/validation.middleware';
 import validate from '../../resources/product/product.validation';
 import ProductService from '../../resources/product/product.service';
+import validateToken from "@/middleware/validate.token";
 
 class ProductController implements Controller {
 	public path = '/products';
@@ -18,17 +19,20 @@ class ProductController implements Controller {
 		this.router.post(
 			`${this.path}`,
 			validationMiddleware(validate.create),
+			validateToken,
 			this.create
 		);
 
 		this.router.get(
 			`${this.path}`,
+			validateToken,
 			this.fetch
 		);
 
 		this.router.put(
 			`${this.path}`,
 			validationMiddleware(validate.update),
+			validateToken,
 			this.update
 		);
 	}

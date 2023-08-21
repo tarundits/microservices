@@ -54,6 +54,7 @@ class UserService {
 	/**
 	 * Updates any particular user
 	 */
+	/*
 	public async update(
 		id: string,
 		first_name: string, 
@@ -90,6 +91,28 @@ class UserService {
 			}
 		}
 	}
+	*/
+
+	public async update(id: string, updatedFields: Partial<User>) {
+		try {
+		  const existingUser = await this.user.findById({ _id: id });
+	  
+		  if (existingUser) {
+			Object.assign(existingUser, updatedFields); // Update provided fields
+			const updatedUser = await existingUser.save();
+			return updatedUser;
+		  } else {
+			throw new CustomError('UserNotFoundError', 'User not found.', 'ObjectId');
+		  }
+		} catch (error: any) {
+		  if (error.name === 'UserNotFoundError' && error.kind === 'ObjectId') {
+			throw new CustomError('UserNotFoundError', 'User not found.', 'ObjectId');
+		  } else {
+			throw new CustomError('UpdateError', 'Unable to update the user.');
+		  }
+		}
+	  }
+	  
 
 	/**
 	 * To check if user exists

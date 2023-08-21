@@ -104,8 +104,8 @@ class UserController implements Controller {
 		next: NextFunction
 	): Promise<Response | void> => {
 		try {
-			const { id, first_name, last_name, email, password, age, photo } = req.body;
-			const user = await this.UserService.update(id, first_name, last_name, email, password, age, photo);
+			const { id, ...updatedFields } = req.body;
+			const user = await this.UserService.update(id, updatedFields);
 			res.status(201).json({ user });
 		} catch (error: any) {
 			next(new HttpException(400, error.message));
