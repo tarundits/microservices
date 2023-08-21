@@ -13,7 +13,7 @@ const validateToken = async (req: Request, res: Response, next: NextFunction) =>
 			'Authorization': `Bearer ${token}`,
 		};
 	  
-		const userApiResponse = await axios.post('http://localhost:3000/api/users/verify_token', {}, {
+		const userApiResponse = await axios.post('http://localhost:8000/api/users/verify_token', {}, {
 			headers: headers,
 		});
 	
